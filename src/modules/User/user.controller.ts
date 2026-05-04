@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { catchAsync } from '../../shared/catchAsync';
 import { UserService } from './user.service';
 import { tokenUtils } from '../../utils/token';
+import { cookieUtil } from '../../utils/cookie';
 
 export const registerUser = catchAsync(async (req: Request, res: Response) => {
 
@@ -31,5 +32,21 @@ export const loginUser = catchAsync(async (req: Request, res: Response) => {
         token: result.accessToken,
         refreshToken: result.refreshToken,
         sessionToken: result.sessionToken
+    });
+});
+
+export const logoutUser = catchAsync(async (req: Request, res: Response) => {
+    // const sessionToken = req.cookies['better-auth.session_token'];
+
+    await UserService.logoutUser(req.headers);
+
+    cookieUtil.clearCookie(res, 'accessToken', { path: '/' });
+    cookieUtil.clearCookie(res, 'refreshToken', { path: '/' });
+    cookieUtil.clearCookie(res, 'better-auth.session_token', { path: '/' });
+
+    res.status(200).json({
+        success: true,
+        message: 'User logged out successfully',
+        data: null
     });
 });

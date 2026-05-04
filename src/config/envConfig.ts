@@ -12,6 +12,9 @@ interface IEnvReturnType {
     JWT_EXPIRES_IN: string;
     JWT_REFRESH_SECRET_KEY: string;
     JWT_REFRESH_EXPIRES_IN: string;
+    CLOUDINARY_CLOUD_NAME: string;
+    CLOUDINARY_API_KEY: string;
+    CLOUDINARY_API_SECRET: string;
 
 }
 
@@ -24,9 +27,10 @@ const envConfig = (): IEnvReturnType => {
         "JWT_SECRET_KEY",
         "JWT_EXPIRES_IN",
         "JWT_REFRESH_SECRET_KEY",
-        "JWT_REFRESH_EXPIRES_IN"
-
-
+        "JWT_REFRESH_EXPIRES_IN",
+        "CLOUDINARY_CLOUD_NAME",
+        "CLOUDINARY_API_KEY",
+        "CLOUDINARY_API_SECRET"
     ];
     envName.forEach((element) => {
         if (!process.env[element]) {
@@ -42,7 +46,10 @@ const envConfig = (): IEnvReturnType => {
         JWT_SECRET_KEY: process.env.JWT_SECRET_KEY!,
         JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN!,
         JWT_REFRESH_SECRET_KEY: process.env.JWT_REFRESH_SECRET_KEY!,
-        JWT_REFRESH_EXPIRES_IN: process.env.JWT_REFRESH_EXPIRES_IN!
+        JWT_REFRESH_EXPIRES_IN: process.env.JWT_REFRESH_EXPIRES_IN!,
+        CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME!,
+        CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY!,
+        CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET!
     };
 };
 

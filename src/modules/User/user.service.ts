@@ -77,7 +77,18 @@ export const loginUser = async (payload: any) => {
     }
 };
 
+export const logoutUser = async (headers: any) => {
+    if (!headers.authorization) return null;
+    try {
+        await auth.api.signOut({ headers });
+    } catch (error) {
+        console.log("logout error", error);
+    }
+    return null;
+};
+
 export const UserService = {
     registerUser,
-    loginUser
+    loginUser,
+    logoutUser
 };
