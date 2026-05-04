@@ -45,7 +45,25 @@ const getAllPosts = async (query: IQueryParams) => {
                 }
             },
             _count: {
-                select: { votes: true }
+                select: { 
+                    votes: true,
+                    comments: true
+                }
+            },
+            comments: {
+                include: {
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                            image: true,
+                        }
+                    }
+                },
+                orderBy: {
+                    createdAt: 'desc'
+                },
+                take: 5 // Optional: limiting comments in list view
             }
         });
 
@@ -66,7 +84,24 @@ const getSinglePost = async (id: string) => {
             },
             votes: true,
             _count: {
-                select: { votes: true }
+                select: { 
+                    votes: true,
+                    comments: true
+                }
+            },
+            comments: {
+                include: {
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                            image: true,
+                        }
+                    }
+                },
+                orderBy: {
+                    createdAt: 'desc'
+                }
             }
         }
     });
